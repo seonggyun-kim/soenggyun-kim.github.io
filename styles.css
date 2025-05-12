@@ -6,20 +6,71 @@ body {
   margin: 0;
   padding: 20px;
   line-height: 1.6;
-  --link-blue: #0066cc;
-  --link-blue-dark: #004999;
+
+  /* colour variables (light mode defaults) */
+  --link-blue:        #0066cc;
+  --link-blue-dark:   #004999;
+  --link:             var(--link-blue);
+
+  background: #fff;
+  color: #000;
 }
 
 .container {
-  max-width: 860px;            /* change here if you prefer 960 px */
-  margin: 80px auto 40px;      /* 80 px top gap leaves room for sticky nav */
+  max-width: 860px;
+  margin: 80px auto 40px;
   padding: 0 1rem;
+}
+
+/* ===================================================================
+   HERO SECTION (HOME / PROFILE)
+   =================================================================== */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 20vh;
+  text-align: center;
+  padding: 100px 1rem 0;
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  margin: 0 0 .5em;
+}
+.hero p {
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 0 1.5em;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: .75em 1.5em;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  background: var(--link);
+  color: #fff;
+  transition: opacity .15s ease;
+}
+.cta-btn:hover { opacity: .85; }
+.cta-btn:active { opacity: .65; }
+
+.sections {
+  max-width: 960px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+.sections h2 {
+  font-size: 1.6rem;
+  margin-bottom: .5em;
 }
 
 /* ===================================================================
    NAVIGATION BAR
    =================================================================== */
-nav {                           /* the bar itself (sticky) */
+nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
@@ -31,68 +82,54 @@ nav {                           /* the bar itself (sticky) */
   border-bottom: 1px solid #ccc;
 }
 
-nav a {                         /* base link style */
+nav a {
   color: black;
   font-weight: 600;
   font-size: .95em;
-  text-decoration: none;        /* no underline until hover/active */
+  text-decoration: none;
   cursor: pointer;
   transition: color .15s ease;
 }
+nav a:hover { color: var(--link-blue-dark); }
+.nav-link.active { color: var(--link-blue-dark); }
 
-nav a:hover {                   /* hover feedback */
-  color: var(--link-blue-dark);
-  text-decoration: underline;
-}
-
-.nav-link.active {              /* underline only the current page */
-  color: var(--link-blue-dark);
-  text-decoration: underline;
+@media (max-width: 600px) {
+  nav {
+    gap: 8px;
+    align-items: center;
+  }
 }
 
 /* ===================================================================
-   IN‑PAGE PDF VIEWERS  (#project-viewer, #cv-viewer)
+   IN-PAGE PDF VIEWERS
    =================================================================== */
 #project-viewer,
-#cv-viewer {
-  width: 100%;            /* same width as the .container */
-  margin-top: 30px;       /* space above the viewer */
+#cv-viewer,
+.pdf-wrap {
+  width: 100%;
+  margin-top: 30px;
 }
-
 #project-viewer iframe,
-#cv-viewer iframe {
-  width: 100%;            /* fill the viewer block */
-  height: 80vh;           /* tweak if you prefer a fixed px height */
+#cv-viewer iframe,
+.pdf-wrap iframe {
+  width: 100%;
+  height: 600px;
   border: 1px solid #ccc;
 }
 
-.pdf-wrap iframe {
-  width: 100%;
-  height: 600px;   /* pick a height that suits your layout */
-  border: none;
-  margin-top: 0px;
-}
-
-/* Close button (shared) */
 .close-btn {
   background-color: var(--link-blue);
   color: #fff;
   border: none;
   padding: 6px 12px;
-  font-size: 0.9em;
+  font-size: .9em;
   cursor: pointer;
   border-radius: 4px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  transition: opacity 0.15s;
+  margin: 5px 0;
+  transition: opacity .15s;
 }
-.close-btn:hover {
-  opacity: 0.8;
-}
-.close-btn:active {
-  opacity: 0.5;
-}
-
+.close-btn:hover { opacity: .8; }
+.close-btn:active { opacity: .5; }
 
 /* ===================================================================
    PROJECT TABLE & EXPANDABLE ROWS
@@ -102,30 +139,14 @@ nav a:hover {                   /* hover feedback */
   border-collapse: collapse;
   margin-bottom: 2rem;
 }
-
-#project-table th,
-#project-table td {
-  padding: 0.6rem 0.8rem;
-  border-bottom: 1px solid #d4d4d4;
-}
-
 #project-table th {
-  background: #f2f2f2;
+  background: #f2f2f2; /* Header background color */
   font-weight: 600;
   cursor: pointer;
   text-align: left;
+  color: #000;
+  border-bottom: 2px solid #d4d4d4; /* Separating border below the header */
 }
-
-#project-table .year-column {
-  width: 5.5rem;
-  text-align: right;
-  cursor: pointer;
-}
-
-.clickable-project {
-  cursor: pointer;
-}
-
 #project-table th.expand-btn,
 #project-table td.expand-btn {
   text-align: center;
@@ -133,33 +154,37 @@ nav a:hover {                   /* hover feedback */
   padding-right: 0;
   width: 1rem;
 }
-
-/* base border on every row */
-#project-table tr td { border-bottom: 1px solid #d4d4d4; }
-
-/* remove the separating line when the row is open */
+#project-table tr td {
+  background: none; /* No background color for regular rows */
+  border-bottom: 1px solid #d4d4d4; /* Optional: keep row separators */
+}
+#project-table .year-column {
+  width: 5.5rem;
+  text-align: right;
+  cursor: pointer;
+  padding-right: 1rem; /* Added padding to balance with the left-most column */
+}
+.clickable-project { cursor: pointer; }
+#project-table tr.open td,
+#project-table .details-row td {
+  background: #e8e8e8;
+}
 #project-table tr.open td {
   border-bottom: none;
   font-weight: bold;
 }
-
 #project-table tr.open .year-column {
   border-bottom: none;
   font-weight: normal;
 }
-
-/* make both rows share the same background */
-#project-table tr.open td,
-#project-table .details-row td {
-  background: #f7f7f7;   /* pick the colour you prefer */
+#project-table tr.details-row td {
+  background: #e8e8e8; /* Background color for expanded row */
+  border-top: 1px solid #d4d4d4; /* Optional: separating border above expanded row */
 }
-
-/* prevent a double top border on the details row */
-#project-table .details-row td {
-  border-top: none;
-  padding-top: 0;
+.details-row td {
+  padding: 1rem 1.2rem;
+  animation: fadeIn .25s ease-in-out;
 }
-
 .toggle-icon {
   font-family: monospace;
   display: inline-block;
@@ -167,20 +192,13 @@ nav a:hover {                   /* hover feedback */
   text-align: center;
   transition: transform .2s ease;
 }
-
-.details-row td {
-  background: #f7f7f7;
-  padding: 1rem 1.2rem;
-  animation: fadeIn .25s ease-in-out;
-}
-
 @keyframes fadeIn {
   from { opacity: 0; }
-  to   { opacity: 1; }
+  to { opacity: 1; }
 }
-
-/* Optional row highlight (e.g., on hover) */
-.highlight { background-color: #e6f3ff; }
+.highlight {
+  background-color: #e6f3ff;
+}
 
 /* ===================================================================
    CARD GRID
@@ -190,14 +208,12 @@ nav a:hover {                   /* hover feedback */
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
-
 .card {
   padding: 1.4rem 1.6rem;
   border: 1px solid #d4d4d4;
   border-radius: 10px;
   background: #fafafa;
-  transition: transform .15s ease,
-              background-color .15s ease;
+  transition: transform .15s ease, background-color .15s ease;
   height: 120px;
 }
 .card:link,
@@ -207,28 +223,158 @@ nav a:hover {                   /* hover feedback */
 }
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, .1);
+}
+.card h3 {
+  margin: 0 0 .4rem;
+  font-size: 1.15rem;
+}
+.card p {
+  margin: 0 0 .6rem;
+  font-size: .95rem;
+  line-height: 1.45;
+}
+.card a {
+  font-weight: 600;
+}
+.card-link {
+  text-decoration: none;
+  color: inherit;
 }
 
-.card h3 { margin: 0 0 .4rem; font-size: 1.15rem; }
-
-.card p  { margin: 0 0 .6rem; font-size: .95rem; line-height: 1.45; }
-
-.card a  { font-weight: 600; }
-
-/* Card grid links (index.html) */
-.card-link { text-decoration: none; color: inherit; }  /* kill default link styles */
-.card-link .card:hover { transform: translateY(-4px); }/* keep the lift‑on‑hover */
-
-
 /* ===================================================================
-   TIMELINE LIST (PROFILE PAGE)
+   TIMELINE LIST
    =================================================================== */
 .profile-timeline {
   list-style: none;
   padding: 0;
   margin: 0 0 2rem;
 }
+.profile-timeline li {
+  margin: .4rem 0;
+  line-height: 1.4;
+}
+.profile-timeline .year {
+  font-weight: 600;
+  display: inline-block;
+  width: 7.2rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
 
-.profile-timeline li    { margin: .4rem 0; line-height: 1.4; }
-.profile-timeline .year { font-weight: 600; display: inline-block; width: 7.2rem; }
+/* ===================================================================
+   DARK MODE OVERRIDES
+   =================================================================== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --link-blue: #8ec4ff;
+    --link-blue-dark: #b3d5ff;
+    --link: var(--link-blue);
+  }
+
+  body {
+    background: #1c1c1e;
+    color: #e2e2e3;
+  }
+
+  a {
+    color: var(--link-blue);
+  }
+  a:hover {
+    color: var(--link-blue-dark);
+  }
+
+  nav {
+    background: #2c2c2e;
+    border-bottom-color: #3a3a3c;
+  }
+  nav a {
+    color: #e0e0e0d5;
+  }
+  nav a:hover,
+  .nav-link.active {
+    color: rgba(255, 255, 240, 1);
+  }
+
+  .hero h1,
+  .hero p {
+    color: #e2e2e3;
+  }
+  .cta-btn {
+    background: var(--link);
+  }
+
+  iframe {
+    border-color: #3a3a3c;
+  }
+
+  #project-table th {
+    background: #333335; /* Slightly darker header background for dark mode */
+    color: #e2e2e3; /* Light text for contrast */
+  }
+
+  #project-table tr td {
+    background: none; /* No background color for regular rows */
+    border-bottom-color: #3a3a3c; /* Subtle border for separation */
+  }
+
+  #project-table tr.details-row td {
+    background: #262628; /* Slightly lighter background for expanded row */
+    border-top: 1px solid #3a3a3c; /* Optional: separating border above expanded row */
+  }
+
+  #project-table tr.open td,
+  #project-table .details-row td {
+    background: #262628;
+  }
+
+  .highlight {
+    background-color: #244058;
+  }
+
+  .card {
+    background: #2a2a2c;
+    border-color: #3a3a3c;
+  }
+  .card:hover {
+    box-shadow: 0 4px 0 rgba(0,0,0,.4);
+  }
+}
+
+/* ===================================================================
+   RESPONSIVE TYPOGRAPHY
+   =================================================================== */
+@media (max-width: 600px) {
+  body {
+    font-size: 0.9rem;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem; /* Reduced font size for consistency */
+    margin-bottom: 0.5em;
+  }
+
+  .hero p {
+    font-size: 0.95rem; /* Adjusted to match the rest of the website */
+    line-height: 1.4; /* Ensure readability */
+    margin-bottom: 1.2em;
+  }
+
+  .sections h2,
+  .card h3 {
+    font-size: 1.3rem;
+  }
+
+  .card p {
+    font-size: 0.85rem;
+  }
+
+  nav a {
+    font-size: 0.85em;
+  }
+
+  #project-table th,
+  #project-table td {
+    font-size: 0.85em;
+  }
+}
