@@ -16,19 +16,28 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ---------- PDF viewer ---------- */
-function viewPDF(path, targetId) {
+function viewPDF(path, targetId, label, switchHtml) {
   const wrap = document.getElementById(targetId);
   wrap.innerHTML = `
-    <button class="close-btn" onclick="closeViewer('${targetId}')">Close</button>
-    <iframe src="${path}#zoom=page-width"></iframe>`;
-  /* scroll only as far as needed so the whole expanded block stays in view */
-  wrap.scrollIntoView({
-    behavior: "smooth",
-    block:    "center",   // or "center"
-    inline:   "nearest"
-  });
+    <div class="pdf-viewer-switch-row">
+      ${switchHtml || ""}
+      <button class="close-btn" style="margin-left:auto" onclick="closeViewer('${targetId}')">Close</button>
+    </div>
+    <iframe src="${path}#zoom=page-width"></iframe>
+  `;
 }
-function closeViewer(id) { document.getElementById(id).innerHTML = ""; }
+function closeViewer(id) {
+  const wrap = document.getElementById(id);
+  if (wrap && wrap._pdfSwitchHtml) {
+    wrap.innerHTML = `
+      <div class="pdf-viewer-switch-row">
+        ${wrap._pdfSwitchHtml}
+      </div>
+    `;
+  } else if (wrap) {
+    wrap.innerHTML = "";
+  }
+}
 window.viewPDF = viewPDF;
 window.closeViewer = closeViewer;
 
@@ -38,7 +47,7 @@ let expandedRow = null;
 
 function toggleDetails(row) {
   const projectInfo = {
-    category: row.dataset.category, // Changed from inst to category
+    category: row.dataset.category,
     desc: row.dataset.desc,
     link1Name: row.dataset.link1Name,
     link1: row.dataset.link1Url,
@@ -46,7 +55,6 @@ function toggleDetails(row) {
     link2: row.dataset.link2Url
   };
 
-  /* ---------- close any open block ---------- */
   if (expandedRow && expandedRow !== row) {
     expandedRow.nextElementSibling.remove();
     expandedRow.classList.remove('open');
@@ -59,10 +67,8 @@ function toggleDetails(row) {
     return;
   }
 
-  /* ---------- unique wrapper ID for this row ---------- */
   const viewerId = `pdf-viewer-${++viewerSeq}`;
 
-  /* ---------- optional links ---------- */
   const linkPairs = [];
   if (projectInfo.link1Name && projectInfo.link1) {
     linkPairs.push([projectInfo.link1Name, projectInfo.link1]);
@@ -71,28 +77,45 @@ function toggleDetails(row) {
     linkPairs.push([projectInfo.link2Name, projectInfo.link2]);
   }
 
-  const linksHtml = linkPairs
-    .map(
-      ([name, url]) =>
-        `<a href="#" onclick="viewPDF('${url}','${viewerId}');return false;">${name}</a>`
-    )
-    .join(' ');
+  // Build the link buttons row (switchHtml)
+  let pdfSwitchHtml = "";
+  if (linkPairs.length > 0) {
+    pdfSwitchHtml = linkPairs.map(([name, url]) =>
+      `<button class="pdf-switch-btn" onclick="viewPDF('${url}','${viewerId}','${name}', window['${viewerId}_switchHtml']);return false;">${name}</button>`
+    ).join(' ');
+  }
 
-  /* ---------- build + insert details row ---------- */
   const details = document.createElement('tr');
   details.className = 'details-row';
   details.innerHTML = `
     <td colspan="2">
       ${projectInfo.category || ''}
       <ul class="project-desc-list">${(projectInfo.desc || '').split('|').map(t => `<li>${t.trim()}</li>`).join('')}</ul>
-      ${linksHtml}
-      <div id="${viewerId}" class="pdf-wrap"></div>
+      <div id="${viewerId}" class="pdf-wrap">
+        <div class="pdf-viewer-switch-row">
+          ${pdfSwitchHtml}
+        </div>
+      </div>
     </td>`;
   row.parentElement.insertBefore(details, row.nextSibling);
 
-  /* ---------- mark row as open ---------- */
+  // Store the switchHtml for later use in closeViewer
+  const pdfWrap = document.getElementById(viewerId);
+  pdfWrap._pdfSwitchHtml = pdfSwitchHtml;
+  window[`${viewerId}_switchHtml`] = pdfSwitchHtml;
+
   row.classList.add('open');
   expandedRow = row;
+
+  // Scroll to row (as before)
+  const nav = document.querySelector('nav');
+  const navHeight = nav ? nav.offsetHeight : 0;
+  const rowRect = row.getBoundingClientRect();
+  const absoluteY = window.scrollY + rowRect.top;
+  window.scrollTo({
+    top: absoluteY - navHeight - 8,
+    behavior: "smooth"
+  });
 }
 
 window.toggleDetails = toggleDetails;
@@ -151,5 +174,20 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", () => {
     const active = document.querySelector(".nav-link.active");
     if (active) moveBar(active);
+  });
+});
+
+/* -------------------------------------------------------------------
+   IMAGE SCROLLER
+------------------------------------------------------------------- */
+document.querySelectorAll('.image-scroller').forEach(scroller => {
+  scroller.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') {
+      scroller.scrollBy({ left: 200, behavior: 'smooth' });
+      e.preventDefault();
+    } else if (e.key === 'ArrowLeft') {
+      scroller.scrollBy({ left: -200, behavior: 'smooth' });
+      e.preventDefault();
+    }
   });
 });

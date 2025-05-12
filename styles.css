@@ -84,6 +84,11 @@ body {
   padding: 0 1rem;
 }
 
+.accent-bold {
+  color: var(--color-accent);
+  font-weight: bold;
+}
+
 /* ===================================================================
    HERO SECTION (HOME / PROFILE)
    =================================================================== */
@@ -189,7 +194,7 @@ nav a:hover { color: var(--color-link); }
   font-size: .9em;
   cursor: pointer;
   border-radius: 4px;
-  margin: 5px 0;
+  margin-left: auto;
   transition: opacity .15s;
 }
 .close-btn:hover {
@@ -205,6 +210,51 @@ nav a:hover { color: var(--color-link); }
   padding: 0;
 }
 
+/* PDF Viewer Header */
+.pdf-viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-highlight);
+  padding: 0.3em 0.7em;
+  border-radius: 6px 6px 0 0;
+  font-size: 1em;
+  font-weight: 500;
+  color: var(--color-fg);
+  border-bottom: 1px solid var(--color-border);
+}
+.pdf-viewer-label {
+  font-size: 0.98em;
+  font-weight: 500;
+  color: var(--color-accent);
+}
+.pdf-viewer-switch {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  display: flex;
+  gap: 0.5em;
+}
+.pdf-viewer-switch-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+}
+.pdf-switch-btn {
+  background: var(--color-code-bg);
+  color: var(--color-fg);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.25em 0.8em;
+  font-size: 0.97em;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.pdf-switch-btn:hover, .pdf-switch-btn.active {
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+}
+
 /* ===================================================================
    PROJECT TABLE & EXPANDABLE ROWS
    =================================================================== */
@@ -213,6 +263,9 @@ nav a:hover { color: var(--color-link); }
   border-collapse: collapse;
   margin-bottom: 2rem;
   table-layout: fixed;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 /* Table Headers */
@@ -278,7 +331,7 @@ nav a:hover { color: var(--color-link); }
 /* Details Row Styling */
 #project-table .details-row td {
   background: var(--color-expanded-row);
-  padding: 0.8rem 0.5rem 0.5rem 0.5rem; /* REDUCED bottom padding */
+  padding: 0 0.5rem 0.5rem 0.5rem; /* REDUCED bottom padding */
   border-left: 2px solid var(--color-accent);
   animation: fadeIn .25s ease-in-out;
 }
@@ -359,6 +412,72 @@ nav a:hover { color: var(--color-link); }
 .card-link {
   text-decoration: none;
   color: inherit;
+}
+
+/* ===================================================================
+   HORIZONTAL IMAGE SCROLLER
+   =================================================================== */
+.image-scroller {
+  display: flex;
+  flex-direction: row;
+  gap: 0.6em;
+  overflow-x: auto;
+  padding: 0em 0 1em 0;
+  margin-bottom: 1.4em;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.image-scroller::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for WebKit browsers */
+}
+
+.image-scroller-img {
+  max-height: 200px;
+  width: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+  display: block;
+  object-fit: contain; /* Preserve aspect ratio without cropping */
+}
+
+/* ===================================================================
+   MUSIC IFRAME
+   =================================================================== */
+.music-iframe {
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  margin-top: 0.5em;
+  margin-bottom: 0.2em;
+  background: var(--color-code-bg);
+  display: block;
+}
+
+.music-iframe-caption {
+  font-size: 0.95em;
+  color: var(--color-muted);
+  margin-bottom: 1.2em;
+  margin-top: 0.2em;
+  text-align: left;
+  font-family: inherit;
+  line-break: anywhere;
+  word-break: normal;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.music-iframe-caption a {
+  color: var(--color-link);
+  text-decoration: underline;
+  font-weight: 500;
+  margin-right: 0.5em;
+}
+
+.music-iframe-caption a:last-child {
+  margin-right: 0;
 }
 
 /* ===================================================================
@@ -501,4 +620,17 @@ nav a:hover { color: var(--color-link); }
   #project-table td {
     font-size: 0.85em;
   }
+}
+
+/* ===================================================================
+   SUBHEADING
+   =================================================================== */
+
+.subheading {
+  font-size: 1.08em;
+  font-weight: 600;
+  margin-top: 0.7em;
+  margin-bottom: 0.05em;
+  color: var(--color-accent);
+  letter-spacing: 0.01em;
 }

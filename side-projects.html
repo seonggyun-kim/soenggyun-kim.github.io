@@ -23,13 +23,80 @@
 
   <main class="container">
     <h2>Side Projects</h2>
-    <ul style="list-style:none; padding:0; margin:0;">
-
-    </ul>
-    This will be updated soon! :)
+    <h3>Music</h3>
+    <h4 class="subheading">Jazz orchestras</h4>
+    <p>I played tuba and bass in student jazz orchestras (PromenadorQuestern och med Baletten Paletten, Kårsdraget) in Stockholm, Sweden.</p>
+    <div class="image-scroller">
+      <div class="image-scroller-item">
+        <img src="images/pq-otukt-1.jpg" alt="PQ Concert Photo 2025" class="image-scroller-img" oncontextmenu="return false;">
+        <div class="image-scroller-caption">PQ Concert 2025</div>
+      </div>
+      <div class="image-scroller-item">
+        <img src="images/pq-sjoslaget-1.JPG" alt="PQ Otukt 2" class="image-scroller-img" oncontextmenu="return false;">
+        <div class="image-scroller-caption">Sjöslaget 2024</div>
+      </div>
+      <div class="image-scroller-item">
+        <img src="images/ihkd-1.JPG" alt="IHKH" class="image-scroller-img" oncontextmenu="return false;">
+        <div class="image-scroller-caption">"IHKH"</div>
+      </div>
+    </div>
+    <h4 class="subheading">Jazz composition</h4>
+    <p>Here's a short jazz ballad I wrote and recorded in 2019, when I was serving in the Korean Air Force. It was ten days before I got to have some days off.</p>
+    <iframe
+      class="music-iframe"
+      width="100%"
+      height="166"
+      scrolling="no"
+      frameborder="20"
+      allow="autoplay"
+      src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/896876224&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+    </iframe>
+    <hr>
+    <h3>Linux Ricing</h3>
+    <p>Will be updated soon</p>
   </main>
 
   <!-- Shared JavaScript -->
   <script src="main.js" defer></script>
+  <script>
+    // Simple slideshow logic with captions
+    const images = [
+      {
+        src: 'images/pq-otukt-1.jpg',
+        caption: 'PQ Otukt, 2023'
+      },
+      {
+        src: 'images/pq-otukt-2.jpg',
+        caption: 'PQ Otukt at Stockholm Jazz Festival'
+      },
+      {
+        src: 'images/pq-otukt-3.jpg',
+        caption: 'Rehearsal with the band'
+      }
+      // Add more objects as needed
+    ];
+    let currentImg = 0;
+    const imgEl = document.getElementById('slideshow-img');
+    const captionEl = document.getElementById('slideshow-caption');
+    function updateSlide() {
+      imgEl.src = images[currentImg].src;
+      captionEl.textContent = images[currentImg].caption;
+    }
+    document.getElementById('slide-prev').onclick = function() {
+      currentImg = (currentImg - 1 + images.length) % images.length;
+      updateSlide();
+    };
+    document.getElementById('slide-next').onclick = function() {
+      currentImg = (currentImg + 1) % images.length;
+      updateSlide();
+    };
+
+    // Prevent right-click on all images in the scroller
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.image-scroller-img').forEach(img => {
+        img.oncontextmenu = () => false;
+      });
+    });
+  </script>
 </body>
 </html>
