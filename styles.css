@@ -263,9 +263,6 @@ nav a:hover { color: var(--color-link); }
   border-collapse: collapse;
   margin-bottom: 2rem;
   table-layout: fixed;
-  user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
 }
 
 /* Table Headers */
