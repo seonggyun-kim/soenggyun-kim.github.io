@@ -450,6 +450,7 @@ nav a:hover { color: var(--color-link); }
   -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
+  max-width: 100%;
 }
 
 .image-scroller::-webkit-scrollbar {
@@ -463,6 +464,46 @@ nav a:hover { color: var(--color-link); }
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
   display: block;
   object-fit: contain; /* Preserve aspect ratio without cropping */
+}
+
+.image-scroller-item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ===================================================================
+   PAGE HORIZONTAL SCROLLER
+   =================================================================== */
+#page-scroll-container {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.page-section {
+  flex: 0 0 100vw;
+  height: 100vh;
+  scroll-snap-align: start;
+  overflow-y: auto;
+  /* Optional: add padding or background as needed */
+}
+
+/* Hide scrollbars for horizontal scroll container */
+#page-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+#page-scroll-container {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 /* ===================================================================
