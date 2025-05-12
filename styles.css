@@ -586,21 +586,19 @@ nav a:hover { color: var(--color-link); }
   margin: .4rem 0;
   line-height: 1.4;
 }
-.profile-timeline .year {
-  font-weight: 600;
+.profile-timeline .year,
+.profile-year-narrow {
   display: inline-block;
-  width: 5.5rem;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-
+.profile-timeline .year {
+  width: 6.2rem;
+}
 .profile-year-narrow {
-  display: inline-block;
-  width: 3.2rem;
+  width: 0em;
   min-width: 4.2rem;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  font-weight: 600;
 }
 
 /* ===================================================================
@@ -753,7 +751,6 @@ nav a:hover { color: var(--color-link); }
 /* ===================================================================
    SUBHEADING
    =================================================================== */
-
 .subheading {
   font-size: 1.08em;
   font-weight: 600;
@@ -761,21 +758,4 @@ nav a:hover { color: var(--color-link); }
   margin-bottom: 0.05em;
   color: var(--color-accent);
   letter-spacing: 0.01em;
-}
-
-.profile-main {
-  font-size: 1em; /* Match base font size of other pages */
-}
-.profile-main .profile-timeline li,
-.profile-main .compact-list li {
-  font-size: 1em;
-  line-height: 1.45;
-}
-.profile-main .year {
-  font-size: 1em;
-  font-weight: 600;
-  display: inline-block;
-  width: 7.2rem;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
 }
