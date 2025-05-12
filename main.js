@@ -16,15 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ---------- PDF viewer ---------- */
-function viewPDF(path, targetId, label, switchHtml) {
+function viewPDF(path, targetId) {
   const wrap = document.getElementById(targetId);
   wrap.innerHTML = `
-    <div class="pdf-viewer-switch-row">
-      ${switchHtml || ""}
-      <button class="close-btn" style="margin-left:auto" onclick="closeViewer('${targetId}')">Close</button>
-    </div>
-    <iframe src="${path}#zoom=page-width"></iframe>
-  `;
+    <button class="close-btn" onclick="closeViewer('${targetId}')">Close</button>
+    <iframe src="${path}#zoom=page-width"></iframe>`;
 }
 function closeViewer(id) {
   const wrap = document.getElementById(id);
