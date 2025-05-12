@@ -1,3 +1,71 @@
+/* ===============================
+   Personal Color Palette
+   Modern, Minimalist, Technical
+   =============================== */
+
+/* LIGHT MODE */
+:root {
+  /* Core */
+  --color-bg: #f9f9fa;               /* Background */
+  --color-fg: #1c1e21;               /* Foreground (main text) */
+  --color-muted: #6e6e73;           /* Muted text (secondary info) */
+  --color-border: #d3d3d8;          /* Neutral borders and separators */
+  --color-highlight: #e6e8ec;       /* Highlighted background (hover, selection) */
+  --color-code-bg: #f3f3f6;         /* Code block background */
+  --color-expanded-row: var(--color-highlight); /* Expanded row background (light mode) */
+
+  /* Accents */
+  --color-accent: #4c5b77;          /* Primary accent (e.g., buttons, highlights) */
+  --color-accent-fg: #f9f9fa;       /* Text on top of accent */
+  --color-accent-2: #69738a;        /* Secondary accent (e.g., tags, info states) */
+
+  /* Statuses */
+  --color-link: #5a6d91;            /* Custom link color (replaces browser default) */
+  --color-green: #6b8f71;         /* Success (low contrast) */
+  --color-yellow: #a69161;         /* Warning (muted golden tone) */
+  --color-red: #a66a6a;          /* Danger / error (muted red) */
+
+  /* Optional transparency variants */
+  --color-muted-alpha: rgba(110, 110, 115, 0.7);
+  --color-accent-alpha: rgba(76, 91, 119, 0.7);
+  --color-border-alpha: rgba(211, 211, 216, 0.7);
+}
+
+/* Set link color in light mode */
+a {
+  color: var(--color-link);
+  text-decoration: underline;
+}
+a:hover {
+  color: var(--color-link);
+  opacity: 0.85;
+}
+
+/* DARK MODE - enable by toggling a .dark class on <body> or <html> */
+.dark {
+  --color-bg: rgb(35, 35, 35);
+  --color-fg: #e5e6ea;
+  --color-muted: #9a9aa0;
+  --color-border: #3c3d42;
+  --color-highlight: #2a2c31;
+  --color-code-bg: #2e2f36;
+  --color-expanded-row: #292b31; /* Expanded row background (dark mode) */
+
+  --color-accent: #8f9cb8;
+  --color-accent-fg: #1e1f22;
+  --color-accent-2: #aab2c8;
+
+  --color-link: #9aaacc;
+  --color-green: #88b294;
+  --color-yellow: #c4ae7a;
+  --color-red: #c98989;
+
+  --color-muted-alpha: rgba(154, 154, 160, 0.7);
+  --color-accent-alpha: rgba(143, 156, 184, 0.7);
+  --color-border-alpha: rgba(60, 61, 66, 0.7);
+}
+
+
 /* ===================================================================
    GLOBAL TYPOGRAPHY & LAYOUT
    =================================================================== */
@@ -6,14 +74,8 @@ body {
   margin: 0;
   padding: 20px;
   line-height: 1.6;
-
-  /* colour variables (light mode defaults) */
-  --link-blue:        #0066cc;
-  --link-blue-dark:   #004999;
-  --link:             var(--link-blue);
-
-  background: #fff;
-  color: #000;
+  background: var(--color-bg);
+  color: var(--color-fg);
 }
 
 .container {
@@ -50,8 +112,8 @@ body {
   border-radius: 8px;
   font-weight: 600;
   text-decoration: none;
-  background: var(--link);
-  color: #fff;
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
   transition: opacity .15s ease;
 }
 .cta-btn:hover { opacity: .85; }
@@ -78,25 +140,26 @@ nav {
   justify-content: center;
   gap: 20px;
   padding: 15px 10px;
-  background: var(--background, #fff);
-  border-bottom: 1px solid #ccc;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
 }
 
 nav a {
-  color: black;
+  color: var(--color-fg);
   font-weight: 600;
   font-size: .95em;
   text-decoration: none;
   cursor: pointer;
   transition: color .15s ease;
 }
-nav a:hover { color: var(--link-blue-dark); }
-.nav-link.active { color: var(--link-blue-dark); }
+nav a:hover { color: var(--color-link); }
+.nav-link.active { color: var(--color-link); }
 
 @media (max-width: 600px) {
   nav {
     gap: 8px;
     align-items: center;
+    padding: 8px 10px; /* REDUCED from 15px to make it shorter on mobile */
   }
 }
 
@@ -107,19 +170,20 @@ nav a:hover { color: var(--link-blue-dark); }
 #cv-viewer,
 .pdf-wrap {
   width: 100%;
-  margin-top: 30px;
+  margin-top: 10px; /* REDUCED from 30px */
 }
 #project-viewer iframe,
 #cv-viewer iframe,
 .pdf-wrap iframe {
   width: 100%;
   height: 600px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border);
 }
 
+/* Close button styling */
 .close-btn {
-  background-color: var(--link-blue);
-  color: #fff;
+  background-color: var(--color-accent);
+  color: var(--color-accent-fg);
   border: none;
   padding: 6px 12px;
   font-size: .9em;
@@ -128,8 +192,18 @@ nav a:hover { color: var(--link-blue-dark); }
   margin: 5px 0;
   transition: opacity .15s;
 }
-.close-btn:hover { opacity: .8; }
-.close-btn:active { opacity: .5; }
+.close-btn:hover {
+  opacity: 0.9;
+}
+.close-btn:active {
+  opacity: 0.7;
+}
+
+/* PDF wrapper when empty (no viewer active) */
+.pdf-wrap:empty {
+  margin: 0;
+  padding: 0;
+}
 
 /* ===================================================================
    PROJECT TABLE & EXPANDABLE ROWS
@@ -138,66 +212,110 @@ nav a:hover { color: var(--link-blue-dark); }
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 2rem;
+  table-layout: fixed;
 }
+
+/* Table Headers */
 #project-table th {
-  background: #f2f2f2; /* Header background color */
+  background: var(--color-highlight);
   font-weight: 600;
   cursor: pointer;
   text-align: left;
-  color: #000;
-  border-bottom: 2px solid #d4d4d4; /* Separating border below the header */
+  color: var(--color-fg);
+  padding: 0.3em 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-bottom: 2px solid var(--color-accent-fg);
 }
-#project-table th.expand-btn,
-#project-table td.expand-btn {
-  text-align: center;
-  vertical-align: middle;
-  padding-right: 0;
-  width: 1rem;
+
+/* Table Cells */
+#project-table td {
+  background: none;
+  padding: 0.3em 0;
 }
-#project-table tr td {
-  background: none; /* No background color for regular rows */
-  border-bottom: 1px solid #d4d4d4; /* Optional: keep row separators */
+
+/* Project Title Column */
+#project-table th:first-child,
+#project-table td:first-child {
+  width: auto;
+  white-space: normal;
+  word-break: break-word;
+  padding-left: 0.5em;
 }
+
+/* Year Column */
 #project-table .year-column {
-  width: 5.5rem;
-  text-align: right;
+  width: 2.6em;
+  text-align: left;
+  white-space: nowrap;
   cursor: pointer;
-  padding-right: 1rem; /* Added padding to balance with the left-most column */
+  padding-right: 0.5em;
 }
-.clickable-project { cursor: pointer; }
-#project-table tr.open td,
-#project-table .details-row td {
-  background: #e8e8e8;
+
+/* Clickable Elements */
+.clickable-project {
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  padding-left: 0.3em;
 }
+
+/* No-break Text Spans */
+.no-break {
+  white-space: nowrap;
+}
+
+/* Open Row Styling */
 #project-table tr.open td {
-  border-bottom: none;
   font-weight: bold;
+  background: var(--color-expanded-row);
 }
-#project-table tr.open .year-column {
-  border-bottom: none;
-  font-weight: normal;
+
+#project-table tr.open .clickable-project {
+  border-left-color: var(--color-accent);
 }
-#project-table tr.details-row td {
-  background: #e8e8e8; /* Background color for expanded row */
-  border-top: 1px solid #d4d4d4; /* Optional: separating border above expanded row */
-}
-.details-row td {
-  padding: 1rem 1.2rem;
+
+/* Details Row Styling */
+#project-table .details-row td {
+  background: var(--color-expanded-row);
+  padding: 0.8rem 0.5rem 0.5rem 0.5rem; /* REDUCED bottom padding */
+  border-left: 2px solid var(--color-accent);
   animation: fadeIn .25s ease-in-out;
 }
-.toggle-icon {
-  font-family: monospace;
-  display: inline-block;
-  width: 1ch;
-  text-align: center;
-  transition: transform .2s ease;
+
+/* Add spacing between category and list */
+#project-table .details-row td > ul {
+  margin-top: 0.5em;
 }
+
+/* Add spacing between list and links */
+#project-table .details-row td > a:first-of-type {
+  margin-top: 0.5em;
+  display: inline-block;
+}
+
+/* Link styling in details rows */
+#project-table .details-row a {
+  display: inline-block;
+  margin-right: 8px; /* Add space between adjacent links */
+  margin-top: 6px; /* REDUCED from whatever it was */
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* Optional Highlight Class */
 .highlight {
-  background-color: #e6f3ff;
+  background-color: var(--color-accent-alpha);
+}
+
+/* Project Description List Adjustments */
+.project-desc-list {
+  padding-left: 1em; /* Default is usually 2.5em or 40px */
+  margin-top: 0.5em;
+  margin-bottom: 0.3em; /* REDUCED bottom margin */
 }
 
 /* ===================================================================
@@ -210,9 +328,9 @@ nav a:hover { color: var(--link-blue-dark); }
 }
 .card {
   padding: 1.4rem 1.6rem;
-  border: 1px solid #d4d4d4;
+  border: 1px solid var(--color-border);
   border-radius: 10px;
-  background: #fafafa;
+  background-color: var(--color-code-bg);
   transition: transform .15s ease, background-color .15s ease;
   height: 120px;
 }
@@ -223,7 +341,7 @@ nav a:hover { color: var(--link-blue-dark); }
 }
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 0 rgba(0, 0, 0, .1);
+  box-shadow: 0 4px 0 var(--color-border-alpha);
 }
 .card h3 {
   margin: 0 0 .4rem;
@@ -235,6 +353,7 @@ nav a:hover { color: var(--link-blue-dark); }
   line-height: 1.45;
 }
 .card a {
+  color: var(--color-link);
   font-weight: 600;
 }
 .card-link {
@@ -270,6 +389,7 @@ nav a:hover { color: var(--link-blue-dark); }
     --link-blue: #8ec4ff;
     --link-blue-dark: #b3d5ff;
     --link: var(--link-blue);
+    --color-expanded-row: #292b31; /* Ensure variable is set for auto dark mode */
   }
 
   body {
@@ -278,10 +398,11 @@ nav a:hover { color: var(--link-blue-dark); }
   }
 
   a {
-    color: var(--link-blue);
+    color: var(--color-link);
   }
   a:hover {
-    color: var(--link-blue-dark);
+    color: var(--color-link);
+    opacity: 0.85;
   }
 
   nav {
@@ -309,23 +430,26 @@ nav a:hover { color: var(--link-blue-dark); }
   }
 
   #project-table th {
-    background: #333335; /* Slightly darker header background for dark mode */
-    color: #e2e2e3; /* Light text for contrast */
+    background: #333335;
+    color: #e2e2e3;
   }
 
   #project-table tr td {
-    background: none; /* No background color for regular rows */
-    border-bottom-color: #3a3a3c; /* Subtle border for separation */
+    background: none;
   }
 
   #project-table tr.details-row td {
-    background: #262628; /* Slightly lighter background for expanded row */
-    border-top: 1px solid #3a3a3c; /* Optional: separating border above expanded row */
+    background: var(--color-expanded-row);
   }
 
   #project-table tr.open td,
   #project-table .details-row td {
-    background: #262628;
+    background: var(--color-expanded-row); /* Use the variable for dark mode as well */
+    border-left-color: var(--color-accent);
+  }
+
+  #project-table tr.open .clickable-project {
+    border-left-color: var(--color-accent);
   }
 
   .highlight {
@@ -337,7 +461,7 @@ nav a:hover { color: var(--link-blue-dark); }
     border-color: #3a3a3c;
   }
   .card:hover {
-    box-shadow: 0 4px 0 rgba(0,0,0,.4);
+    box-shadow: 0 4px 0 var(--color-border-alpha);
   }
 }
 
@@ -350,13 +474,13 @@ nav a:hover { color: var(--link-blue-dark); }
   }
 
   .hero h1 {
-    font-size: 1.8rem; /* Reduced font size for consistency */
+    font-size: 1.8rem;
     margin-bottom: 0.5em;
   }
 
   .hero p {
-    font-size: 0.95rem; /* Adjusted to match the rest of the website */
-    line-height: 1.4; /* Ensure readability */
+    font-size: 0.95rem;
+    line-height: 1.4;
     margin-bottom: 1.2em;
   }
 

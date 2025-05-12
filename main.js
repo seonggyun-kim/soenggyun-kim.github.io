@@ -33,30 +33,28 @@ window.viewPDF = viewPDF;
 window.closeViewer = closeViewer;
 
 /* ---------- Expand / collapse rows ---------- */
-let viewerSeq = 0;                         // new: unique IDs
+let viewerSeq = 0;
 let expandedRow = null;
 
-function toggleDetails(row) { // Signature changed to only accept the row
-  // Construct projectInfo from the row's data attributes
+function toggleDetails(row) {
   const projectInfo = {
-    inst: row.dataset.inst,
+    category: row.dataset.category, // Changed from inst to category
     desc: row.dataset.desc,
     link1Name: row.dataset.link1Name,
-    link1: row.dataset.link1Url, // HTML attribute: data-link1-url
+    link1: row.dataset.link1Url,
     link2Name: row.dataset.link2Name,
-    link2: row.dataset.link2Url  // HTML attribute: data-link2-url
+    link2: row.dataset.link2Url
   };
 
   /* ---------- close any open block ---------- */
   if (expandedRow && expandedRow !== row) {
-    expandedRow.nextElementSibling.remove();          // remove <tr class="details-row">
+    expandedRow.nextElementSibling.remove();
     expandedRow.classList.remove('open');
-    expandedRow.querySelector('.toggle-icon').textContent = '+';
   }
-  if (expandedRow === row) {                           // clicked the same row → collapse
+
+  if (expandedRow === row) {
     row.nextElementSibling.remove();
     row.classList.remove('open');
-    row.querySelector('.toggle-icon').textContent = '+';
     expandedRow = null;
     return;
   }
@@ -84,26 +82,30 @@ function toggleDetails(row) { // Signature changed to only accept the row
   const details = document.createElement('tr');
   details.className = 'details-row';
   details.innerHTML = `
-    <td></td>
     <td colspan="2">
-      ${projectInfo.inst || ''}
-      <ul>${(projectInfo.desc || '').split('|').map(t => `<li>${t.trim()}</li>`).join('')}</ul>
+      ${projectInfo.category || ''}
+      <ul class="project-desc-list">${(projectInfo.desc || '').split('|').map(t => `<li>${t.trim()}</li>`).join('')}</ul>
       ${linksHtml}
-      <div id="${viewerId}" class="pdf-wrap"></div>    <!-- viewer injected here -->
+      <div id="${viewerId}" class="pdf-wrap"></div>
     </td>`;
   row.parentElement.insertBefore(details, row.nextSibling);
 
   /* ---------- mark row as open ---------- */
   row.classList.add('open');
-  row.querySelector('.toggle-icon').textContent = '–';
   expandedRow = row;
 }
-
 
 window.toggleDetails = toggleDetails;
 
 /* ---------- Simple table sorter ---------- */
 function sortTable(col) {
+  // Collapse any expanded row before sorting
+  if (expandedRow) {
+    expandedRow.nextElementSibling.remove(); // Remove the details row
+    expandedRow.classList.remove('open');    // Remove 'open' class
+    expandedRow = null;                      // Reset expandedRow
+  }
+
   const table = document.getElementById("project-table");
   const rows  = Array.from(table.tBodies[0].rows);
   const asc   = !table._asc;                         // toggle direction
