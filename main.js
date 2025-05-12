@@ -32,10 +32,20 @@ function closeViewer(id) { document.getElementById(id).innerHTML = ""; }
 window.viewPDF = viewPDF;
 window.closeViewer = closeViewer;
 
-/* ---------- Expand / collapse rows ---------- */let viewerSeq = 0;                         // new: unique IDs
-let expandedRow = null;                    // already present
+/* ---------- Expand / collapse rows ---------- */
+let viewerSeq = 0;                         // new: unique IDs
+let expandedRow = null;
 
-function toggleDetails(row, inst, desc, link1Name, link1, link2Name, link2) {
+function toggleDetails(row) { // Signature changed to only accept the row
+  // Construct projectInfo from the row's data attributes
+  const projectInfo = {
+    inst: row.dataset.inst,
+    desc: row.dataset.desc,
+    link1Name: row.dataset.link1Name,
+    link1: row.dataset.link1Url, // HTML attribute: data-link1-url
+    link2Name: row.dataset.link2Name,
+    link2: row.dataset.link2Url  // HTML attribute: data-link2-url
+  };
 
   /* ---------- close any open block ---------- */
   if (expandedRow && expandedRow !== row) {
@@ -55,12 +65,15 @@ function toggleDetails(row, inst, desc, link1Name, link1, link2Name, link2) {
   const viewerId = `pdf-viewer-${++viewerSeq}`;
 
   /* ---------- optional links ---------- */
-  const linkPairs = [
-    [link1Name, link1],
-    [link2Name, link2],
-  ];
+  const linkPairs = [];
+  if (projectInfo.link1Name && projectInfo.link1) {
+    linkPairs.push([projectInfo.link1Name, projectInfo.link1]);
+  }
+  if (projectInfo.link2Name && projectInfo.link2) {
+    linkPairs.push([projectInfo.link2Name, projectInfo.link2]);
+  }
+
   const linksHtml = linkPairs
-    .filter(([name, url]) => name && url)              // only complete pairs
     .map(
       ([name, url]) =>
         `<a href="#" onclick="viewPDF('${url}','${viewerId}');return false;">${name}</a>`
@@ -73,8 +86,8 @@ function toggleDetails(row, inst, desc, link1Name, link1, link2Name, link2) {
   details.innerHTML = `
     <td></td>
     <td colspan="2">
-      ${inst}
-      <ul>${desc.split('|').map(t => `<li>${t.trim()}</li>`).join('')}</ul>
+      ${projectInfo.inst || ''}
+      <ul>${(projectInfo.desc || '').split('|').map(t => `<li>${t.trim()}</li>`).join('')}</ul>
       ${linksHtml}
       <div id="${viewerId}" class="pdf-wrap"></div>    <!-- viewer injected here -->
     </td>`;
