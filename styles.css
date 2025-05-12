@@ -152,7 +152,7 @@ nav {
 nav a {
   color: var(--color-fg);
   font-weight: 600;
-  font-size: .95em;
+  font-size: 1.12em; /* Increased font size for navbar links */
   text-decoration: none;
   cursor: pointer;
   transition: color .15s ease;
@@ -165,6 +165,9 @@ nav a:hover { color: var(--color-link); }
     gap: 8px;
     align-items: center;
     padding: 8px 10px; /* REDUCED from 15px to make it shorter on mobile */
+  }
+  nav a {
+    font-size: 1.05em; /* Slightly larger nav text on mobile too */
   }
 }
 
@@ -265,7 +268,12 @@ nav a:hover { color: var(--color-link); }
   table-layout: fixed;
 }
 
-/* Table Headers */
+#project-table th,
+#project-table td {
+  font-size: 1em; /* Ensure consistent font size for all cells and headers */
+  vertical-align: top; /* Top align all cells by default */
+}
+
 #project-table th {
   background: var(--color-highlight);
   font-weight: 600;
@@ -279,13 +287,30 @@ nav a:hover { color: var(--color-link); }
   border-bottom: 2px solid var(--color-accent-fg);
 }
 
-/* Table Cells */
 #project-table td {
   background: none;
   padding: 0.3em 0;
+  vertical-align: top; /* Ensure vertical top alignment for all cells */
 }
 
-/* Project Title Column */
+#project-table .year-column,
+#project-table th.year-column {
+  width: 2.6em;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  padding-right: 0.5em;
+  vertical-align: top; /* Top align year column */
+}
+
+.clickable-project {
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  padding-left: 0.3em;
+  font-size: 1em; /* Ensure same font size as other cells */
+}
+
+/* Table Headers */
 #project-table th:first-child,
 #project-table td:first-child {
   width: auto;
@@ -610,12 +635,12 @@ nav a:hover { color: var(--color-link); }
   }
 
   nav a {
-    font-size: 0.85em;
+    font-size: 1.05em; /* Slightly larger nav text on mobile too */
   }
 
   #project-table th,
   #project-table td {
-    font-size: 0.85em;
+    font-size: 1em; /* Consistent font size on mobile */
   }
 }
 
