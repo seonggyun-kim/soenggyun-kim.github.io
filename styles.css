@@ -12,8 +12,8 @@
   --color-border: #d3d3d8;          /* Neutral borders and separators */
   --color-highlight: #e6e8ec;       /* Highlighted background (hover, selection) */
   --color-code-bg: #f3f3f6;         /* Code block background */
-  --color-expanded-row: var(--color-highlight); /* Expanded row background (light mode) */
-
+  --color-expanded-row: #e0e4f4;    /* Optimized: more violet, matches accent */
+  --color-table-header: #69759A;    /* Use accent color for table header in light mode */
 
   /* Primary accent (violet) */
   --accent-base:   #69759A;
@@ -43,7 +43,7 @@
 
   /* Optional transparency variants */
   --color-muted-alpha: rgba(110, 110, 115, 0.7);
-  --color-accent-alpha: rgba(76, 91, 119, 0.7);
+  --color-accent-alpha: rgba(76, 91, 119, 0.07);
   --color-border-alpha: rgba(211, 211, 216, 0.7);
 }
 
@@ -59,13 +59,14 @@ a:hover {
 
 /* DARK MODE - enable by toggling a .dark class on <body> or <html> */
 .dark {
-  --color-bg: rgb(35, 35, 35);
+  --color-bg: #23243a;
   --color-fg: #e5e6ea;
   --color-muted: #9a9aa0;
   --color-border: #3c3d42;
   --color-highlight: #2a2c31;
   --color-code-bg: #2e2f36;
-  --color-expanded-row: #292b31; /* Expanded row background (dark mode) */
+  --color-expanded-row: #2d314a; /* More violet, matches dark accent */
+  --color-table-header: #8f9cb8; /* Use accent color for table header in dark mode */
 
   --color-accent: #8f9cb8;
   --color-accent-fg: #1e1f22;
@@ -77,10 +78,9 @@ a:hover {
   --color-red: #c98989;
 
   --color-muted-alpha: rgba(154, 154, 160, 0.7);
-  --color-accent-alpha: rgba(143, 156, 184, 0.7);
+  --color-accent-alpha: rgba(143, 156, 184, 0.07);
   --color-border-alpha: rgba(60, 61, 66, 0.7);
 }
-
 
 /* ===================================================================
    GLOBAL TYPOGRAPHY & LAYOUT
@@ -205,44 +205,37 @@ nav a:hover { color: var(--accent-hover); }
 }
 
 /* PDF switch button and close button consistent styling */
-.close-btn {
-  background: var(--color-red, #c98989);
-  color: #fff;
+.pdf-switch-btn, .close-btn {
   border: none;
+  border-radius: 4px;
   padding: 6px 12px;
   font-size: 0.9em;
   cursor: pointer;
-  border-radius: 4px;
   margin: 5px 0;
   transition: background 0.15s, opacity 0.15s;
   font-weight: 400;
+}
+.pdf-switch-btn {
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+}
+.pdf-switch-btn:hover, .pdf-switch-btn.active {
+  background: var(--accent-hover);
+  color: var(--color-accent-fg);
+  opacity: 0.85;
+}
+.pdf-switch-btn:active {
+  opacity: 0.65;
+}
+.close-btn {
+  background: var(--color-red, #c98989);
+  color: #fff;
 }
 .close-btn:hover {
   opacity: 0.85;
   background: #b86a6a;
 }
 .close-btn:active {
-  opacity: 0.65;
-}
-
-.pdf-switch-btn {
-  background: var(--color-accent, #69759A);
-  color: var(--color-accent-fg, #f9f9fa);
-  border: none;
-  border-radius: 4px;
-  padding: 6px 12px;
-  font-size: 0.9em;
-  cursor: pointer;
-  margin: 5px 0;
-  transition: background 0.15s, opacity 0.15s;
-  font-weight: 400;
-}
-.pdf-switch-btn:hover, .pdf-switch-btn.active {
-  background: var(--accent-hover, #5C688C);
-  color: var(--color-accent-fg, #f9f9fa);
-  opacity: 0.85;
-}
-.pdf-switch-btn:active {
   opacity: 0.65;
 }
 
@@ -310,28 +303,6 @@ nav a:hover { color: var(--accent-hover); }
   margin-bottom: 0.5em;
 }
 
-/* PDF Switch Button */
-.pdf-switch-btn {
-  background: var(--color-accent);
-  color: var(--color-accent-fg);
-  border: none;
-  border-radius: 4px;
-  padding: 6px 12px;
-  font-size: 0.9em;
-  cursor: pointer;
-  margin: 5px 0;
-  transition: background 0.15s, opacity 0.15s;
-  font-weight: 400;
-}
-.pdf-switch-btn:hover, .pdf-switch-btn.active {
-  background: var(--accent-hover);
-  color: var(--color-accent-fg);
-  opacity: 0.85;
-}
-.pdf-switch-btn:active {
-  opacity: 0.65;
-}
-
 /* ===================================================================
    PROJECT TABLE & EXPANDABLE ROWS
    =================================================================== */
@@ -349,11 +320,11 @@ nav a:hover { color: var(--accent-hover); }
 }
 
 #project-table th {
-  background: var(--color-highlight);
+  background: var(--color-expanded-row) !important;
+  color: var(--color-accent-fg);
   font-weight: 600;
   cursor: pointer;
   text-align: left;
-  color: var(--color-fg);
   padding: 0.3em 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -422,7 +393,12 @@ nav a:hover { color: var(--accent-hover); }
 
 #project-table tr.open .clickable-project,
 #project-table .details-row td {
-  border-left: 2px solid var(--color-accent, #69759A);
+  border-left: 2px solid var(--color-accent);
+}
+
+#project-table tr.open td,
+#project-table .details-row td {
+  background: var(--color-expanded-row);
 }
 
 /* Details Row Styling */
@@ -708,7 +684,7 @@ nav a:hover { color: var(--accent-hover); }
   }
 
   #project-table th {
-    background: #333335;
+    background: var(--color-table-header);
     color: #e2e2e3;
   }
 
