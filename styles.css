@@ -14,16 +14,32 @@
   --color-code-bg: #f3f3f6;         /* Code block background */
   --color-expanded-row: var(--color-highlight); /* Expanded row background (light mode) */
 
-  /* Accents */
-  --color-accent: #4c5b77;          /* Primary accent (e.g., buttons, highlights) */
-  --color-accent-fg: #f9f9fa;       /* Text on top of accent */
-  --color-accent-2: #69738a;        /* Secondary accent (e.g., tags, info states) */
+
+  /* Primary accent (violet) */
+  --accent-base:   #69759A;
+  --accent-hover:  #5C688C;
+  --accent-active: #515D80;
+
+  /* Secondary accent (teal) */
+  --accent2-base:   #567C96;
+  --accent2-hover:  #496F88;
+  --accent2-active: #3E637C;
+
+  /* Link uses secondary accent */
+  --link-base:   var(--accent2-base);
+  --link-hover:  var(--accent2-hover);
+  --link-active: var(--accent2-active);
 
   /* Statuses */
-  --color-link: #5a6d91;            /* Custom link color (replaces browser default) */
-  --color-green: #6b8f71;         /* Success (low contrast) */
-  --color-yellow: #a69161;         /* Warning (muted golden tone) */
-  --color-red: #a66a6a;          /* Danger / error (muted red) */
+  --color-link:   var(--link-base);
+  --color-green:  #547F67;
+  --color-yellow: #986B60;
+  --color-red:    #946875;
+
+  /* Accents */
+  --color-accent: #69759A;          /* Primary accent (e.g., buttons, highlights) */
+  --color-accent-fg: #f9f9fa;       /* Text on top of accent */
+  --color-accent-2: #69738a;        /* Secondary accent (e.g., tags, info states) */
 
   /* Optional transparency variants */
   --color-muted-alpha: rgba(110, 110, 115, 0.7);
@@ -157,8 +173,8 @@ nav a {
   cursor: pointer;
   transition: color .15s ease;
 }
-nav a:hover { color: var(--color-link); }
-.nav-link.active { color: var(--color-link); }
+nav a:hover { color: var(--accent-hover); }
+.nav-link.active { color: var(--accent-active); }
 
 @media (max-width: 600px) {
   nav {
@@ -188,25 +204,46 @@ nav a:hover { color: var(--color-link); }
   border: 1px solid var(--color-border);
 }
 
-/* Close button styling */
+/* PDF switch button and close button consistent styling */
 .close-btn {
-  background-color: var(--color-accent);
-  color: var(--color-accent-fg);
+  background: var(--color-red, #c98989);
+  color: #fff;
   border: none;
   padding: 6px 12px;
-  font-size: .9em;
+  font-size: 0.9em;
   cursor: pointer;
   border-radius: 4px;
-  margin-left: auto;
-  margin-bottom: 0.5em; /* Add gap below the button */
-  transition: opacity .15s;
-  display: block;
+  margin: 5px 0;
+  transition: background 0.15s, opacity 0.15s;
+  font-weight: 400;
 }
 .close-btn:hover {
-  opacity: 0.9;
+  opacity: 0.85;
+  background: #b86a6a;
 }
 .close-btn:active {
-  opacity: 0.7;
+  opacity: 0.65;
+}
+
+.pdf-switch-btn {
+  background: var(--color-accent, #69759A);
+  color: var(--color-accent-fg, #f9f9fa);
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.9em;
+  cursor: pointer;
+  margin: 5px 0;
+  transition: background 0.15s, opacity 0.15s;
+  font-weight: 400;
+}
+.pdf-switch-btn:hover, .pdf-switch-btn.active {
+  background: var(--accent-hover, #5C688C);
+  color: var(--color-accent-fg, #f9f9fa);
+  opacity: 0.85;
+}
+.pdf-switch-btn:active {
+  opacity: 0.65;
 }
 
 /* PDF wrapper when empty (no viewer active) */
@@ -222,7 +259,7 @@ nav a:hover { color: var(--color-link); }
   align-items: center;
   background: var(--color-highlight);
   padding: 0.3em 0.7em;
-  border-radius: 6px 6px 0 0;
+  border-radius: 0 0 0 0;
   font-size: 1em;
   font-weight: 500;
   color: var(--color-fg);
@@ -275,18 +312,24 @@ nav a:hover { color: var(--color-link); }
 
 /* PDF Switch Button */
 .pdf-switch-btn {
-  background: var(--color-code-bg);
-  color: var(--color-fg);
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  padding: 0.25em 0.8em;
-  font-size: 0.97em;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-}
-.pdf-switch-btn:hover, .pdf-switch-btn.active {
   background: var(--color-accent);
   color: var(--color-accent-fg);
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.9em;
+  cursor: pointer;
+  margin: 5px 0;
+  transition: background 0.15s, opacity 0.15s;
+  font-weight: 400;
+}
+.pdf-switch-btn:hover, .pdf-switch-btn.active {
+  background: var(--accent-hover);
+  color: var(--color-accent-fg);
+  opacity: 0.85;
+}
+.pdf-switch-btn:active {
+  opacity: 0.65;
 }
 
 /* ===================================================================
@@ -377,8 +420,9 @@ nav a:hover { color: var(--color-link); }
   background: var(--color-expanded-row);
 }
 
-#project-table tr.open .clickable-project {
-  border-left-color: var(--color-accent);
+#project-table tr.open .clickable-project,
+#project-table .details-row td {
+  border-left: 2px solid var(--color-accent, #69759A);
 }
 
 /* Details Row Styling */
