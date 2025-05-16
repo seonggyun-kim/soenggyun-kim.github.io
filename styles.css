@@ -320,7 +320,7 @@ nav a:hover { color: var(--accent-hover); }
 }
 
 #project-table th {
-  background: var(--color-expanded-row) !important;
+  background: var(--color-accent) !important;
   color: var(--color-accent-fg);
   font-weight: 600;
   cursor: pointer;
@@ -329,7 +329,8 @@ nav a:hover { color: var(--accent-hover); }
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  border-bottom: 2px solid var(--color-accent-fg);
+  border-bottom: 0px solid var(--color-accent-fg);
+  border-left: 2px solid var(--color-accent);
 }
 
 #project-table td {
@@ -644,6 +645,7 @@ nav a:hover { color: var(--accent-hover); }
     --link-blue-dark: #b3d5ff;
     --link: var(--link-blue);
     --color-expanded-row: #292b31; /* Ensure variable is set for auto dark mode */
+    --color-fg: #e2e2e3;
   }
 
   body {
@@ -664,11 +666,11 @@ nav a:hover { color: var(--accent-hover); }
     border-bottom-color: #3a3a3c;
   }
   nav a {
-    color: #e0e0e0d5;
+    color: var(--color-fg);
   }
   nav a:hover,
   .nav-link.active {
-    color: rgba(255, 255, 240, 1);
+    color: var(--color-highlight);
   }
 
   .hero h1,
