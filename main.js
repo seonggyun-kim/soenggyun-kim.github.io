@@ -48,7 +48,8 @@ function toggleDetails(row) {
     link1Name: row.dataset.link1Name,
     link1: row.dataset.link1Url,
     link2Name: row.dataset.link2Name,
-    link2: row.dataset.link2Url
+    link2: row.dataset.link2Url,
+    img: row.dataset.img // NEW: image path if present
   };
 
   if (expandedRow && expandedRow !== row) {
@@ -81,12 +82,19 @@ function toggleDetails(row) {
     ).join(' ');
   }
 
+  // NEW: If there is an image, add it above the buttons
+  let imageHtml = '';
+  if (projectInfo.img) {
+    imageHtml = `<div class="project-expanded-img-wrap"><img src="${projectInfo.img}" alt="Project flowsheet image" style="max-width:100%;" /></div>`;
+  }
+
   const details = document.createElement('tr');
   details.className = 'details-row';
   details.innerHTML = `
     <td colspan="2">
       ${projectInfo.category || ''}
       <ul class="project-desc-list">${(projectInfo.desc || '').split('|').map(t => `<li>${t.trim()}</li>`).join('')}</ul>
+      ${imageHtml}
       <div id="${viewerId}" class="pdf-wrap">
         <div class="pdf-viewer-switch-row">
           ${pdfSwitchHtml}
