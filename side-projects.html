@@ -12,9 +12,17 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Navbar placeholder (filled by main.js) -->
   <nav>
-    <a href="index.html"         class="nav-link">Home</a>
+    <a href="index.html" class="nav-link" title="Home" style="font-size:1.25em;line-height:1;vertical-align:middle;">
+      <span style="display:inline-block;vertical-align:middle;">
+        <!-- Home icon SVG (Tabler Icons style) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.35em" height="1.35em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;">
+          <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+          <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+          <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+        </svg>
+      </span>
+    </a>
     <a href="profile.html"       class="nav-link">Profile</a>
     <a href="projects.html"      class="nav-link">Projects</a>
     <a href="side-projects.html" class="nav-link">Side Projects</a>
@@ -24,8 +32,22 @@
   <main class="container">
     <h2>Side Projects</h2>
     <h3>Music</h3>
+    
+    <h4 class="subheading">Jazz composition</h4>
+    <p>Here's a short jazz ballad I wrote and recorded in 2019, when I was serving in the Korean Air Force. It was ten days before I got to have some days off.</p>
+<iframe
+  class="music-iframe"
+  style="width:100%;max-width:700px;"
+  height="200"
+  scrolling="no"
+  frameborder="no"
+  allow="autoplay"
+  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/896876224&visual=false&show_artwork=true&color=%2369759A&auto_play=true&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
+</iframe>
+
+    
     <h4 class="subheading">Jazz orchestras</h4>
-    <p>I played tuba and bass in student jazz orchestras (PromenadorQuestern och med Baletten Paletten, Kårsdraget) in Stockholm, Sweden.</p>
+    <p>I played tuba and bass in student jazz orchestras (PromenadorQuestern och med Baletten Paletten, Kårsdraget) in Stockholm, Sweden. Mainly played Dixieland swing jazz.</p>
     <div class="image-scroller">
       <div class="image-scroller-item">
         <img src="images/pq-otukt-1.jpeg" alt="PQ Concert Photo 2025" class="image-scroller-img" oncontextmenu="return false;">
@@ -39,19 +61,6 @@
         <img src="images/ihkd-1.JPG" alt="IHKH" class="image-scroller-img" oncontextmenu="return false;">
         <div class="image-scroller-caption">"IHKH"</div>
       </div>
-    </div>
-    <h4 class="subheading">Jazz composition</h4>
-    <p>Here's a short jazz ballad I wrote and recorded in 2019, when I was serving in the Korean Air Force. It was ten days before I got to have some days off.</p>
-    <div style="width:100%;overflow-x:auto;">
-      <iframe
-        class="music-iframe"
-        width="100%"
-        height="166"
-        scrolling="no"
-        frameborder="20"
-        allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/896876224&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true">
-      </iframe>
     </div>
     <hr>
     <h3>Linux Ricing</h3>

@@ -13,7 +13,16 @@
 </head>
 <body>
   <nav>
-    <a href="index.html"         class="nav-link">Home</a>
+    <a href="index.html" class="nav-link" title="Home" style="font-size:1.25em;line-height:1;vertical-align:middle;">
+      <span style="display:inline-block;vertical-align:middle;">
+        <!-- Home icon SVG (Tabler Icons style) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.35em" height="1.35em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;">
+          <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+          <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+          <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+        </svg>
+      </span>
+    </a>
     <a href="profile.html"       class="nav-link">Profile</a>
     <a href="projects.html"      class="nav-link">Projects</a>
     <a href="side-projects.html" class="nav-link">Side Projects</a>
@@ -21,8 +30,8 @@
   </nav>
 
   <main class="container">
-    <h2>Projects</h2>
-    <p>Click on the project titles to view more details and associated report or presentation slides.</p>
+    <h2>Academic Projects</h2>
+    <p>Click on a project title to view more details and the associated report or presentation slides. The list includes projects from my coursework at KTH or Hanyang, competition entries, conference presentations, and more. I plan to organize the list into categories in the future.</p>
     <!-- Project table -->
     <table id="project-table">
       <thead>
@@ -57,7 +66,8 @@
             data-link1-name="Presentation"
             data-link1-url="projects/aveva-competition-winners-presentation.pdf"
             data-link2-name="Competition Entry"
-            data-link2-url="projects/aps-competition-submission-seonggyun-kim.pdf">
+            data-link2-url="projects/aps-competition-submission-seonggyun-kim.pdf"
+            data-img="images/aps-flowsheet.jpg">
           <td class="clickable-project">Hydrogen Economy: Ammonia Synthesis Process Optimization</td>
           <td class="year-column">2024</td>
         </tr>

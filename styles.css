@@ -12,22 +12,38 @@
   --color-border: #d3d3d8;          /* Neutral borders and separators */
   --color-highlight: #e6e8ec;       /* Highlighted background (hover, selection) */
   --color-code-bg: #f3f3f6;         /* Code block background */
-  --color-expanded-row: var(--color-highlight); /* Expanded row background (light mode) */
+  --color-expanded-row: #e0e4f4;    /* Optimized: more violet, matches accent */
+  --color-table-header: #69759A;    /* Use accent color for table header in light mode */
+
+  /* Primary accent (violet) */
+  --accent-base:   #69759A;
+  --accent-hover:  #5C688C;
+  --accent-active: #515D80;
+
+  /* Secondary accent (teal) */
+  --accent2-base:   #567C96;
+  --accent2-hover:  #496F88;
+  --accent2-active: #3E637C;
+
+  /* Link uses secondary accent */
+  --link-base:   var(--accent2-base);
+  --link-hover:  var(--accent2-hover);
+  --link-active: var(--accent2-active);
+
+  /* Statuses */
+  --color-link:   var(--link-base);
+  --color-green:  #547F67;
+  --color-yellow: #986B60;
+  --color-red:    #946875;
 
   /* Accents */
-  --color-accent: #4c5b77;          /* Primary accent (e.g., buttons, highlights) */
+  --color-accent: #69759A;          /* Primary accent (e.g., buttons, highlights) */
   --color-accent-fg: #f9f9fa;       /* Text on top of accent */
   --color-accent-2: #69738a;        /* Secondary accent (e.g., tags, info states) */
 
-  /* Statuses */
-  --color-link: #5a6d91;            /* Custom link color (replaces browser default) */
-  --color-green: #6b8f71;         /* Success (low contrast) */
-  --color-yellow: #a69161;         /* Warning (muted golden tone) */
-  --color-red: #a66a6a;          /* Danger / error (muted red) */
-
   /* Optional transparency variants */
   --color-muted-alpha: rgba(110, 110, 115, 0.7);
-  --color-accent-alpha: rgba(76, 91, 119, 0.7);
+  --color-accent-alpha: rgba(76, 91, 119, 0.07);
   --color-border-alpha: rgba(211, 211, 216, 0.7);
 }
 
@@ -43,13 +59,14 @@ a:hover {
 
 /* DARK MODE - enable by toggling a .dark class on <body> or <html> */
 .dark {
-  --color-bg: rgb(35, 35, 35);
+  --color-bg: #23243a;
   --color-fg: #e5e6ea;
   --color-muted: #9a9aa0;
   --color-border: #3c3d42;
   --color-highlight: #2a2c31;
   --color-code-bg: #2e2f36;
-  --color-expanded-row: #292b31; /* Expanded row background (dark mode) */
+  --color-expanded-row: #2d314a; /* More violet, matches dark accent */
+  --color-table-header: #8f9cb8; /* Use accent color for table header in dark mode */
 
   --color-accent: #8f9cb8;
   --color-accent-fg: #1e1f22;
@@ -61,10 +78,9 @@ a:hover {
   --color-red: #c98989;
 
   --color-muted-alpha: rgba(154, 154, 160, 0.7);
-  --color-accent-alpha: rgba(143, 156, 184, 0.7);
+  --color-accent-alpha: rgba(143, 156, 184, 0.07);
   --color-border-alpha: rgba(60, 61, 66, 0.7);
 }
-
 
 /* ===================================================================
    GLOBAL TYPOGRAPHY & LAYOUT
@@ -139,6 +155,7 @@ body {
    =================================================================== */
 nav {
   position: fixed;
+  width: 100vw;
   top: 0; left: 0; right: 0;
   z-index: 1000;
   display: flex;
@@ -157,17 +174,21 @@ nav a {
   cursor: pointer;
   transition: color .15s ease;
 }
-nav a:hover { color: var(--color-link); }
-.nav-link.active { color: var(--color-link); }
+nav a:hover { color: var(--accent-hover); }
+.nav-link.active { color: var(--accent-active); }
 
 @media (max-width: 600px) {
   nav {
+    width: 100vw;
+    max-width: 100vw;
+    left: 0;
+    right: 0;
+    margin: 0;
+    justify-content: center;
     gap: 8px;
     align-items: center;
-    padding: 8px 10px; /* REDUCED from 15px to make it shorter on mobile */
-  }
-  nav a {
-    font-size: 1.05em; /* Slightly larger nav text on mobile too */
+    padding: 8px 10px;
+    box-sizing: border-box;
   }
 }
 
@@ -188,25 +209,39 @@ nav a:hover { color: var(--color-link); }
   border: 1px solid var(--color-border);
 }
 
-/* Close button styling */
-.close-btn {
-  background-color: var(--color-accent);
-  color: var(--color-accent-fg);
+/* PDF switch button and close button consistent styling */
+.pdf-switch-btn, .close-btn {
   border: none;
-  padding: 6px 12px;
-  font-size: .9em;
-  cursor: pointer;
   border-radius: 4px;
-  margin-left: auto;
-  margin-bottom: 0.5em; /* Add gap below the button */
-  transition: opacity .15s;
-  display: block;
+  padding: 6px 12px;
+  font-size: 0.9em;
+  cursor: pointer;
+  margin: 5px 0;
+  transition: background 0.15s, opacity 0.15s;
+  font-weight: 400;
+}
+.pdf-switch-btn {
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+}
+.pdf-switch-btn:hover, .pdf-switch-btn.active {
+  background: var(--accent-hover);
+  color: var(--color-accent-fg);
+  opacity: 0.85;
+}
+.pdf-switch-btn:active {
+  opacity: 0.65;
+}
+.close-btn {
+  background: var(--color-red, #c98989);
+  color: #fff;
 }
 .close-btn:hover {
-  opacity: 0.9;
+  opacity: 0.85;
+  background: #b86a6a;
 }
 .close-btn:active {
-  opacity: 0.7;
+  opacity: 0.65;
 }
 
 /* PDF wrapper when empty (no viewer active) */
@@ -222,7 +257,7 @@ nav a:hover { color: var(--color-link); }
   align-items: center;
   background: var(--color-highlight);
   padding: 0.3em 0.7em;
-  border-radius: 6px 6px 0 0;
+  border-radius: 0 0 0 0;
   font-size: 1em;
   font-weight: 500;
   color: var(--color-fg);
@@ -235,7 +270,7 @@ nav a:hover { color: var(--color-link); }
 }
 .pdf-viewer-switch {
   margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin-bottom: 0;
   display: flex;
   gap: 0.5em;
 }
@@ -243,7 +278,7 @@ nav a:hover { color: var(--color-link); }
   display: flex;
   align-items: center;
   gap: 0.5em;
-  margin-bottom: 0.5em;
+  margin-bottom: 0;
   flex-wrap: wrap;
   z-index: 2;
   background: var(--color-expanded-row, #fff);
@@ -270,23 +305,7 @@ nav a:hover { color: var(--color-link); }
   display: flex;
   align-items: center;
   gap: 0.5em;
-  margin-bottom: 0.5em;
-}
-
-/* PDF Switch Button */
-.pdf-switch-btn {
-  background: var(--color-code-bg);
-  color: var(--color-fg);
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  padding: 0.25em 0.8em;
-  font-size: 0.97em;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-}
-.pdf-switch-btn:hover, .pdf-switch-btn.active {
-  background: var(--color-accent);
-  color: var(--color-accent-fg);
+  margin-bottom: 0;
 }
 
 /* ===================================================================
@@ -306,16 +325,17 @@ nav a:hover { color: var(--color-link); }
 }
 
 #project-table th {
-  background: var(--color-highlight);
+  background: var(--color-accent) !important;
+  color: var(--color-accent-fg);
   font-weight: 600;
   cursor: pointer;
   text-align: left;
-  color: var(--color-fg);
   padding: 0.3em 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  border-bottom: 2px solid var(--color-accent-fg);
+  border-bottom: 0px solid var(--color-accent-fg);
+  border-left: 2px solid var(--color-accent);
 }
 
 #project-table td {
@@ -377,8 +397,14 @@ nav a:hover { color: var(--color-link); }
   background: var(--color-expanded-row);
 }
 
-#project-table tr.open .clickable-project {
-  border-left-color: var(--color-accent);
+#project-table tr.open .clickable-project,
+#project-table .details-row td {
+  border-left: 2px solid var(--color-accent);
+}
+
+#project-table tr.open td,
+#project-table .details-row td {
+  background: var(--color-expanded-row);
 }
 
 /* Details Row Styling */
@@ -624,6 +650,7 @@ nav a:hover { color: var(--color-link); }
     --link-blue-dark: #b3d5ff;
     --link: var(--link-blue);
     --color-expanded-row: #292b31; /* Ensure variable is set for auto dark mode */
+    --color-fg: #e2e2e3;
   }
 
   body {
@@ -644,11 +671,11 @@ nav a:hover { color: var(--color-link); }
     border-bottom-color: #3a3a3c;
   }
   nav a {
-    color: #e0e0e0d5;
+    color: var(--color-fg);
   }
   nav a:hover,
   .nav-link.active {
-    color: rgba(255, 255, 240, 1);
+    color: var(--color-highlight);
   }
 
   .hero h1,
@@ -664,7 +691,7 @@ nav a:hover { color: var(--color-link); }
   }
 
   #project-table th {
-    background: #333335;
+    background: var(--color-table-header);
     color: #e2e2e3;
   }
 
@@ -758,4 +785,21 @@ nav a:hover { color: var(--color-link); }
   margin-bottom: 0.05em;
   color: var(--color-accent);
   letter-spacing: 0.01em;
+}
+
+/* Ensure images in .project-expanded-img-wrap are left-aligned, have no rounded corners, no shadows, and no margins or paddings. */
+.project-expanded-img-wrap img {
+  display: block;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  height: auto;
+  text-align: left;
+}
+.project-expanded-img-wrap {
+  text-align: left;
+  margin: 0;
+  padding: 0;
 }
