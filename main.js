@@ -195,3 +195,16 @@ document.querySelectorAll('.image-scroller').forEach(scroller => {
     }
   });
 });
+
+function enlargeImage(anchor) {
+  const fullImageSrc = anchor.dataset.full;
+  const modal = document.createElement('div');
+  modal.className = 'image-modal';
+  modal.innerHTML = `
+    <div class="image-modal-content">
+      <img src="${fullImageSrc}" alt="Enlarged Image" style="max-width: 90%; max-height: 90%; display: block; margin: auto;">
+      <button class="close-btn" style="display: block; margin: 10px auto;" onclick="document.body.removeChild(this.parentElement.parentElement)">Close</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
