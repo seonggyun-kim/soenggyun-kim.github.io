@@ -198,13 +198,34 @@ document.querySelectorAll('.image-scroller').forEach(scroller => {
 
 function enlargeImage(anchor) {
   const fullImageSrc = anchor.dataset.full;
+  const captionText = anchor.querySelector('img').alt || 'Image'; // Use the alt text as the caption
   const modal = document.createElement('div');
   modal.className = 'image-modal';
   modal.innerHTML = `
     <div class="image-modal-content">
-      <img src="${fullImageSrc}" alt="Enlarged Image" style="max-width: 90%; max-height: 90%; display: block; margin: auto;">
-      <button class="close-btn" style="display: block; margin: 10px auto;" onclick="document.body.removeChild(this.parentElement.parentElement)">Close</button>
+      <img src="${fullImageSrc}" alt="Enlarged Image" style="max-width: 90%; max-height: 90vh; display: block; margin: auto;">
+      <div class="image-caption">${captionText}</div>
+      <button class="close-btn" onclick="document.body.removeChild(this.parentElement.parentElement)">Close</button>
     </div>
   `;
+  modal.onclick = (e) => {
+    if (e.target === modal) {
+      document.body.removeChild(modal);
+    }
+  };
   document.body.appendChild(modal);
 }
+
+/* -------------------------------------------------------------------
+   PAGE DISABLE/ENABLE SYSTEM
+------------------------------------------------------------------- */
+document.addEventListener("DOMContentLoaded", () => {
+  const activePages = ["index.html", "profile.html", "projects.html", "social.html"]; // List of active pages
+  const navbar = document.querySelector("nav");
+  navbar.querySelectorAll(".nav-link").forEach(link => {
+    const href = link.getAttribute("href");
+    if (!activePages.includes(href)) {
+      link.style.display = "none"; // Hide disabled pages
+    }
+  });
+});
