@@ -220,7 +220,7 @@ function enlargeImage(anchor) {
    PAGE DISABLE/ENABLE SYSTEM
 ------------------------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
-  const activePages = ["index.html", "profile.html", "projects.html", "social.html"]; // List of active pages
+  const activePages = ["index.html", "profile.html", "projects.html", "side-projects.html", "social.html"]; // List of active pages
   const navbar = document.querySelector("nav");
   navbar.querySelectorAll(".nav-link").forEach(link => {
     const href = link.getAttribute("href");
