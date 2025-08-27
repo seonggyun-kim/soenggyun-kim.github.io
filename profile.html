@@ -10,6 +10,8 @@
 
   <!-- Global styles -->
   <link rel="stylesheet" href="styles.css">
+  <!-- Umami Analytics -->
+  <script async src="https://stats.seonggyun.kim/script.js" data-website-id="35e98543-699f-4f21-9bd5-5476f516f2ef"></script>
 </head>
 <body>
 
@@ -35,13 +37,13 @@
     <h2>Profile</h2>
 
     <p>Hello, I’m <strong>Seonggyun Kim</strong>, a master’s student in Chemical Engineering for Energy and Environment at KTH (Stockholm). My work centers on sustainable process design, energy‑system modelling and industry decarbonization.</p>
-    <p id="cv-desc">
-      You can
-      <a href="cv-seonggyun-kim.pdf" target="_blank">download</a>
-      my CV or
-      <a href="#" onclick="viewAndScrollCV(); return false;">view in this page</a>
-      .
-    </p>
+<p id="cv-desc">
+  You can
+  <a href="cv-seonggyun-kim.pdf" target="_blank" onclick="umami.track('cv_download')">download</a>
+  my CV or
+  <a href="#" onclick="viewAndScrollCV(); umami.track('cv_view_inline'); return false;">view in this page</a>
+  .
+</p>
     <div id="cv-viewer"></div>
 
     <h3>Experience</h3>
