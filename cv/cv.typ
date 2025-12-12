@@ -27,7 +27,7 @@
   | +82#h(0.16em)10#h(0.16em)4142#h(0.16em)0178
   | Seoul, South Korea
   | #link("https://www.linkedin.com/in/seonggyunkim")[www.linkedin.com/in/seonggyunkim]
-  | #link("https://kmsnggyn.github.io")[view online]
+  | #link("https://cv.seonggyun.kim")[view online]
 ]
 
 // --- SUMMARY ---
