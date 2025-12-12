@@ -3,13 +3,21 @@
 #set page(paper: "a4", margin: 1.5cm)
 #set text(font: "Liberation Serif", size: 10.5pt)
 #set par(justify: true)
-#show link: it => underline(text(fill: blue, it))
+#show link: it => underline(text(fill: rgb("#1F224A"), it))
 
 // Chemical formula helper (like \ce in LaTeX)
 #let ce(formula) = {
   show regex("\d+"): it => sub(it)
   formula
 }
+
+// Project entry helper (keeps entry together on one page)
+#let project(title, link-url, date, bullets) = block(breakable: false)[
+  *#title* #link(link-url)[*(link)*] #h(1fr) *#date*
+  #for bullet in bullets [
+    - #bullet
+  ]
+]
 
 // --- HEADER ---
 #align(center)[
@@ -72,53 +80,122 @@ _Research Assistant | Department of Low Carbon Technologies_ #h(1fr) _Oberhausen
 #link("https://www.seonggyun.kim/projects.html")[*(link)*]
 #v(-0.75em) #line(length: 100%, stroke: 0.5pt) #v(-0.5em)
 
-*Techno-economic Analysis of CCUS in Sweden* #link("https://www.seonggyun.kim/projects/techno-economic-analysis-ccus-sweden.pdf")[*(link)*] #h(1fr) *Dec. 2024*
-- Modeled MEA-based carbon capture and #ce[CO2] hydrogenation processes using Aspen Plus V14.
-- Evaluated economic feasibility for storage and utilization scenarios in Sweden's cement (Slite) and pulp (Korsnäs) industries.
-- Led methanol production process design, optimizing kinetic models and reporting levelized costs for breakeven analysis.
+#project(
+  "Dynamic Reactor Modeling and Operational Optimization of Flexible E-Methanol Production",
+  "https://www.seonggyun.kim/projects/msc-thesis-seonggyun-kim.pdf",
+  "Dec. 2025",
+  (
+    "Built steady-state process model and dynamic reactor model in Aspen Dynamics for Power-to-Methanol process.",
+    "Developed MILP optimization framework integrating dynamic constraints to determine optimal operating schedules against Swedish electricity prices (2019–2023).",
+    "Achieved cost reductions up to 24.5% through flexibility-aware scheduling during high price volatility periods.",
+  )
+)
 
-*AVEVA Process Simulation Academic Competition 2024 - Hydrogen Economy* #link("https://www.seonggyun.kim/projects/aps-competition-submission-seonggyun-kim.pdf")[*(link)*] #h(1fr) *Feb. 2024*
-- Designed a green ammonia synthesis process integrating solar hydrogen production in AVEVA Process Simulation.
-- Optimized heat integration using high- and low-pressure steam, comparing EAOC and NPV against pipeline transport.
-- The simulation and technical report entries in the three-part project won "Best Overall" prize in Europe.
+#project(
+  "Techno-economic Analysis of CCUS in Sweden",
+  "https://www.seonggyun.kim/projects/techno-economic-analysis-ccus-sweden.pdf",
+  "Dec. 2024",
+  (
+    [Modeled MEA-based carbon capture and #ce[CO2] hydrogenation processes using Aspen Plus V14.],
+    "Evaluated economic feasibility for storage and utilization scenarios in Sweden's cement (Slite) and pulp (Korsnäs) industries.",
+    "Led methanol production process design, optimizing kinetic models and reporting levelized costs for breakeven analysis.",
+  )
+)
 
-#pagebreak()
+#project(
+  "AVEVA Process Simulation Academic Competition 2024 - Hydrogen Economy",
+  "https://www.seonggyun.kim/projects/aps-competition-submission-seonggyun-kim.pdf",
+  "Feb. 2024",
+  (
+    "Designed a green ammonia synthesis process integrating solar hydrogen production in AVEVA Process Simulation.",
+    "Optimized heat integration using high- and low-pressure steam, comparing EAOC and NPV against pipeline transport.",
+    "The simulation and technical report entries in the three-part project won \"Best Overall\" prize in Europe.",
+  )
+)
 
-*Metal Recovery Using Supercritical #ce[CO2]* #link("https://www.seonggyun.kim/projects/metal-recovery-supercritical-co2.pdf")[*(link)*] #h(1fr) *Feb. 2024*
-- Investigated sc#ce[CO2] extraction for recovering rare earth elements and heavy metals from coal fly ash, ores, and batteries.
-- Demonstrated industrial potential with recovery rates up to 97% for uranium and 90% for rare earth elements.
-- Assessed the technology readiness level (TRL 4) and selectivity challenges for industrial implementation.
+#project(
+  [Metal Recovery Using Supercritical #ce[CO2]],
+  "https://www.seonggyun.kim/projects/metal-recovery-supercritical-co2.pdf",
+  "Feb. 2024",
+  (
+    [Investigated sc#ce[CO2] extraction for recovering rare earth elements and heavy metals from coal fly ash, ores, and batteries.],
+    "Demonstrated industrial potential with recovery rates up to 97% for uranium and 90% for rare earth elements.",
+    "Assessed the technology readiness level (TRL 4) and selectivity challenges for industrial implementation.",
+  )
+)
 
-*Nickel-rich Electrodes for Li-ion Batteries* #link("https://www.seonggyun.kim/projects/nickel-rich-electrodes-li-ion-batteries.pdf")[*(link)*] #h(1fr) *Dec. 2023*
-- Reviewed Ni-rich electrodes for lithium-ion batteries, highlighting their structural configurations, degradation mechanisms, and commercial applications.
-- Identified performance limitations and degradation during cycling, and challenges in finding suitable electrolytes.
-- Addressed the need to replace cobalt in existing electrodes and the overall impact on the commercial viability of Ni-rich materials.
+#project(
+  "Nickel-rich Electrodes for Li-ion Batteries",
+  "https://www.seonggyun.kim/projects/nickel-rich-electrodes-li-ion-batteries.pdf",
+  "Dec. 2023",
+  (
+    "Reviewed Ni-rich electrodes for lithium-ion batteries, highlighting their structural configurations, degradation mechanisms, and commercial applications.",
+    "Identified performance limitations and degradation during cycling, and challenges in finding suitable electrolytes.",
+    "Addressed the need to replace cobalt in existing electrodes and the overall impact on the commercial viability of Ni-rich materials.",
+  )
+)
 
-*Pressurized Pilot-scale Fluidized Bed Gasifier: A Risk Analysis* #link("https://www.seonggyun.kim/projects/pressurized-fluidized-bed-gasifier-risk-analysis.pdf")[*(link)*] #h(1fr) *Dec. 2023*
-- Conducted a Preliminary Hazard Analysis (PHA) and What-if analysis on an existing gasification plant at KTH.
-- Provided risk assessments and recommendations for process safety enhancements.
+#project(
+  "Pressurized Pilot-scale Fluidized Bed Gasifier: A Risk Analysis",
+  "https://www.seonggyun.kim/projects/pressurized-fluidized-bed-gasifier-risk-analysis.pdf",
+  "Dec. 2023",
+  (
+    "Conducted a Preliminary Hazard Analysis (PHA) and What-if analysis on an existing gasification plant at KTH.",
+    "Provided risk assessments and recommendations for process safety enhancements.",
+  )
+)
 
-*Thermodynamic Analysis of a Biomass-fueled Combined Heat and Power Plant with a Fuel Drier* #link("https://www.seonggyun.kim/projects/biomass-fired-chp-plant-with-fuel-drier.pdf")[*(link)*] #h(1fr) *Oct. 2023*
-- Thermodynamic analysis of the system components (compressors, turbines, heat exchangers, and a drier).
-- Presented graphical results from pinch analysis and heat exchange calculations.
-- Economic analysis based on different scenarios varying electricity, fuel, and green certificate prices.
+#project(
+  "Thermodynamic Analysis of a Biomass-fueled Combined Heat and Power Plant with a Fuel Drier",
+  "https://www.seonggyun.kim/projects/biomass-fired-chp-plant-with-fuel-drier.pdf",
+  "Oct. 2023",
+  (
+    "Thermodynamic analysis of the system components (compressors, turbines, heat exchangers, and a drier).",
+    "Presented graphical results from pinch analysis and heat exchange calculations.",
+    "Economic analysis based on different scenarios varying electricity, fuel, and green certificate prices.",
+  )
+)
 
-*Simulation and Optimization of MDEA-based #ce[CO2] Capture Process* #link("https://www.seonggyun.kim/projects/simulation-optimization-mdea-carbon-capture.pdf")[*(link)*] #h(1fr) *Jun. 2022*
-- Developed Aspen HYSYS simulations for process optimization and sensitivity analysis.
-- Verified the relationship between absorber L/G ratio, #ce[CO2] recovery, lean loading, and specific reboiler duty.
+#project(
+  [Simulation and Optimization of MDEA-based #ce[CO2] Capture Process],
+  "https://www.seonggyun.kim/projects/simulation-optimization-mdea-carbon-capture.pdf",
+  "Jun. 2022",
+  (
+    "Developed Aspen HYSYS simulations for process optimization and sensitivity analysis.",
+    [Verified the relationship between absorber L/G ratio, #ce[CO2] recovery, lean loading, and specific reboiler duty.],
+  )
+)
 
-*NRTL Parameter Optimization for Alkane/Sulfolane Binary Mixtures* #link("https://www.seonggyun.kim/projects/nrtl-parameter-optimization-alkane-sulfolane.pdf")[*(link)*] #h(1fr) *Nov. 2021*
-- Optimized NRTL parameters to accurately calculate liquid-liquid equilibria using MATLAB.
-- Achieved improved accuracy by adding a linear term to the τ term in the conventional model.
+#project(
+  "NRTL Parameter Optimization for Alkane/Sulfolane Binary Mixtures",
+  "https://www.seonggyun.kim/projects/nrtl-parameter-optimization-alkane-sulfolane.pdf",
+  "Nov. 2021",
+  (
+    "Optimized NRTL parameters to accurately calculate liquid-liquid equilibria using MATLAB.",
+    "Achieved improved accuracy by adding a linear term to the τ term in the conventional model.",
+  )
+)
 
-*Estimation of Energy Penalty in Post-Combustion CCS* #link("https://www.seonggyun.kim/projects/co2-compression-refrigeration-ccs-energy-penalty.pdf")[*(link)*] #h(1fr) *Jun. 2021*
-- Estimated energy consumption of #ce[CO2] compression and refrigeration using Lee-Kesler equation of state programmed in MATLAB.
-- Optimized compression processes for high-pressure storage and low-pressure transport pathways.
+#project(
+  "Estimation of Energy Penalty in Post-Combustion CCS",
+  "https://www.seonggyun.kim/projects/co2-compression-refrigeration-ccs-energy-penalty.pdf",
+  "Jun. 2021",
+  (
+    [Estimated energy consumption of #ce[CO2] compression and refrigeration using Lee-Kesler equation of state programmed in MATLAB.],
+    "Optimized compression processes for high-pressure storage and low-pressure transport pathways.",
+  )
+)
 
-*Eigenfaces: Face Recognition Machine Learning Algorithm* #link("https://www.seonggyun.kim/projects/eigenfaces-kim-seonggyun.pdf")[*(link)*] #h(1fr) *Dec. 2020*
-- Developed a face recognition machine learning algorithm in MATLAB using PCA and SVD.
-- Trained on Yale_B dataset and successfully identified faces outside the training set.
-- Applied dimensionality reduction and pattern recognition techniques for real-world image data.
+#project(
+  "Eigenfaces: Face Recognition Machine Learning Algorithm",
+  "https://www.seonggyun.kim/projects/eigenfaces-kim-seonggyun.pdf",
+  "Dec. 2020",
+  (
+    "Developed a face recognition machine learning algorithm in MATLAB using PCA and SVD.",
+    "Trained on Yale_B dataset and successfully identified faces outside the training set.",
+    "Applied dimensionality reduction and pattern recognition techniques for real-world image data.",
+  )
+)
 
 // --- COMPUTER SKILLS ---
 #v(1em)
